@@ -74,20 +74,22 @@ func main() {
 	}
 
 	if isRoman(num1Str) || isRoman(num2Str) {
-		fmt.Printf("Результат: %s\n", intToRoman(result))
+		if result <= 0 {
+			fmt.Println("Результат не может быть представлен в римских цифрах.")
+		} else {
+			fmt.Printf("Результат: %s\n", intToRoman(result))
+		}
 	} else {
 		fmt.Printf("Результат: %d\n", result)
 	}
 }
 
 func romanToInt(s string) int {
-	romanMap := map[string]int{
-		"I": 1, "V": 5, "X": 10,
-	}
+	romanMap := map[byte]int{'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
 	result := 0
 	prevValue := 0
 	for i := len(s) - 1; i >= 0; i-- {
-		value := romanMap[string(s[i])]
+		value := romanMap[s[i]]
 		if value < prevValue {
 			result -= value
 		} else {
@@ -99,8 +101,8 @@ func romanToInt(s string) int {
 }
 
 func intToRoman(num int) string {
-	values := []int{10, 9, 5, 4, 1}
-	symbols := []string{"X", "IX", "V", "IV", "I"}
+	values := []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
+	symbols := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
 	result := ""
 	for i := 0; i < len(values); i++ {
 		for num >= values[i] {
@@ -112,7 +114,7 @@ func intToRoman(num int) string {
 }
 
 func isRoman(s string) bool {
-	romanChars := "IVX"
+	romanChars := "IVXLCDM"
 	for _, char := range s {
 		if !strings.ContainsRune(romanChars, char) {
 			return false
