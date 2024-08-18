@@ -35,12 +35,20 @@ func main() {
 
 	if isRoman(num1Str) {
 		num1 = romanToInt(num1Str)
+		if num1 < 1 || num1 > 10 {
+			fmt.Println("Неверный формат чисел. Римские числа должны быть в диапазоне от I до X.")
+			return
+		}
 	} else {
 		num1, err1 = strconv.Atoi(num1Str)
 	}
 
 	if isRoman(num2Str) {
 		num2 = romanToInt(num2Str)
+		if num2 < 1 || num2 > 10 {
+			fmt.Println("Неверный формат чисел. Римские числа должны быть в диапазоне от I до X.")
+			return
+		}
 	} else {
 		num2, err2 = strconv.Atoi(num2Str)
 	}
@@ -50,8 +58,8 @@ func main() {
 		return
 	}
 
-	if num1 > 10 || num2 > 10 {
-		fmt.Println("Неверный формат чисел. Числа не могут быть больше 10.")
+	if num1 < 1 || num1 > 10 || num2 < 1 || num2 > 10 {
+		fmt.Println("Неверный формат чисел. Числа должны быть в диапазоне от 1 до 10.")
 		return
 	}
 
@@ -121,4 +129,4 @@ func isRoman(s string) bool {
 		}
 	}
 	return true
-}
+} 
